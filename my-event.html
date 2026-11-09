@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חתונה בקליק - האירוע שלי</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-box">
+                <a href="index.html" class="logo">לוגו | חתונה בקליק</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="פתח תפריט">☰</button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">בית</a></li>
+                    <li><a href="search-venue.html">חיפוש אולם</a></li>
+                    <li><a href="suppliers.html">ספקים</a></li>
+                    <li><a href="my-event.html" class="active">האירוע שלי</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="nav-auth-area">
+                <a href="auth.html" class="btn btn-outline nav-auth-btn">התחברות</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container page-layout">
+        
+        <!-- Header Info & Sharing Card -->
+        <div class="card card-bordered event-header-card">
+            <div class="event-title-row">
+                <h1>האירוע שלי</h1>
+                <button class="btn btn-outline" id="open-share-modal">שיתוף האירוע</button>
+            </div>
+            <div class="event-details-bar" id="event-details-bar">
+                <span><strong>תאריך:</strong> <span id="info-date">14/06/2027</span></span>
+                <span> | <strong>מספר אורחים:</strong> <span id="info-guests">300</span></span>
+                <span> | <strong>אזור:</strong> <span id="info-region">מרכז</span></span>
+            </div>
+            <div class="participants-list" id="participants-list" style="margin-top: 10px;">
+                <small>משתתפים: נועה (בעלים) - דניאל (שותף/ה) - אמא של נועה (צופה)</small>
+            </div>
+        </div>
+
+        <!-- Budget Summary Card -->
+        <section class="card card-bordered budget-card" style="margin-top: 20px;">
+            <div class="budget-header-row">
+                <h2>סיכום תקציב</h2>
+                <button class="btn btn-dark" id="open-budget-modal">עריכת תקציב</button>
+            </div>
+
+            <div class="budget-stats">
+                <div class="stat-item">
+                    <span class="stat-label">תקציב כולל: </span>
+                    <strong class="stat-value" id="total-budget-val">₪250,000</strong>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">נוצל: </span>
+                    <strong class="stat-value" id="used-budget-val">₪162,000</strong>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">נשאר: </span>
+                    <strong class="stat-value" id="remaining-budget-val">₪88,000</strong>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container" style="background: #e0e0e0; height: 15px; border-radius: 8px; margin-top: 15px; overflow: hidden;">
+                <div class="progress-bar" id="budget-progress-bar" style="width: 64.8%; background-color: var(--primary-color, #C9897F); height: 100%;"></div>
+            </div>
+            <p class="budget-warning hidden" id="budget-warning" style="color: red; margin-top: 8px; font-weight: bold; display: none;">⚠️ אם הסכום עובר את התקציב, הסרגל נצבע באדום ומופיעה התראה</p>
+        </section>
+
+        <!-- Selected Vendors Table Card -->
+        <section class="card card-bordered" style="margin-top: 20px;">
+            <h2>האולם והספקים שבחרתי</h2>
+            <div class="table-responsive">
+                <table class="vendors-table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #ccc; text-align: right;">
+                            <th style="padding: 10px;">קטגוריה</th>
+                            <th style="padding: 10px;">שם</th>
+                            <th style="padding: 10px;">מחיר</th>
+                            <th style="padding: 10px;">פעולות</th>
+                        </tr>
+                    </thead>
+                    <tbody id="selected-vendors-tbody">
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">אולם</td>
+                            <td style="padding: 10px;">שם האולם</td>
+                            <td style="padding: 10px;">₪144,000</td>
+                            <td style="padding: 10px;"><button class="btn btn-outline btn-sm">הסרה</button></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">צלם</td>
+                            <td style="padding: 10px;">שם הצלם</td>
+                            <td style="padding: 10px;">₪12,000</td>
+                            <td style="padding: 10px;"><button class="btn btn-outline btn-sm">הסרה</button></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">DJ</td>
+                            <td style="padding: 10px;">שם ה-DJ</td>
+                            <td style="padding: 10px;">₪6,000</td>
+                            <td style="padding: 10px;"><button class="btn btn-outline btn-sm">הסרה</button></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">קייטרינג</td>
+                            <td style="padding: 10px; color: #777;">עוד לא נבחר</td>
+                            <td style="padding: 10px;">-</td>
+                            <td style="padding: 10px;"><a href="suppliers.html" class="btn-link">לחיפוש ספקים</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: Edit Budget -->
+    <div class="modal hidden" id="budget-modal" style="display: none;">
+        <div class="modal-content card card-bordered">
+            <span class="close-modal" id="close-budget-modal" style="cursor: pointer; float: left; font-weight: bold;">&times;</span>
+            <h3>עריכת תקציב כולל</h3>
+            <form id="edit-budget-form">
+                <div class="form-group">
+                    <label for="new-total-budget">הכנס תקציב כולל חדש (₪):</label>
+                    <input type="number" id="new-total-budget" min="0" required placeholder="250,000">
+                </div>
+                <button type="submit" class="btn btn-dark">שמירה</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Share Event -->
+    <div class="modal hidden" id="share-modal" style="display: none;">
+        <div class="modal-content card card-bordered">
+            <span class="close-modal" id="close-share-modal" style="cursor: pointer; float: left; font-weight: bold;">&times;</span>
+            <h3>שיתוף האירוע</h3>
+            <form id="share-event-form">
+                <div class="form-group">
+                    <label for="share-email">דוא"ל של המוזמן:</label>
+                    <input type="email" id="share-email" required placeholder="partner@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="share-role">תפקיד:</label>
+                    <select id="share-role">
+                        <option value="editor">שותף/ה (עריכה מלאה)</option>
+                        <option value="viewer">צופה (צפייה בלבד)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-dark">שליחת הזמנה</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <p>© 2026 חתונה בקליק | <a href="#">צרו קשר</a></p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
