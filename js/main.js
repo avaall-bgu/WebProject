@@ -356,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             clearAllFormErrors(suppliersSearchForm);
 
-            // 1. בדיקה האם נבחרה לפחות קטגוריית ספק אחת
             const selectedCategories = Array.from(document.querySelectorAll('input[name="supplier-type"]:checked'))
                 .map(cb => cb.value);
 
@@ -367,7 +366,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 2. ולדיציית תאריך
             const supplierDateInput = document.getElementById('supplier-date');
             if (supplierDateInput && supplierDateInput.value) {
                 const selDate = new Date(supplierDateInput.value);
@@ -392,71 +390,116 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================
-       6. מודאלים (Modals)
+       6. עמוד האירוע שלי: עריכת תקציב + הסרה מטבלה (my-event.html)
        ========================================== */
-    const openBudgetBtn = document.getElementById('open-budget-modal');
-    const closeBudgetBtn = document.getElementById('close-budget-modal');
     const budgetModal = document.getElementById('budget-modal');
+    
+    // פתיחה וסגירה של מודאל עריכת תקציב
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('button, a');
+        if (btn) {
+            const btnText = btn.textContent.trim();
+            if (btnText.includes('עריכת תקציב') || btn.id === 'open-budget-modal') {
+                if (budgetModal) budgetModal.classList.remove('hidden');
+            }
+            if (btn.id === 'close-budget-modal' || btn.classList.contains('close-modal-btn')) {
+                if (budgetModal) budgetModal.classList.add('hidden');
+            }
+        }
+    });
 
-    if (openBudgetBtn && budgetModal) {
-        openBudgetBtn.addEventListener('click', () => budgetModal.classList.remove('hidden'));
-    }
-    if (closeBudgetBtn && budgetModal) {
-        closeBudgetBtn.addEventListener('click', () => budgetModal.classList.add('hidden'));
+    let currentTotalBudget = 250000;
+
+    function updateBudgetSummary() {
+        // מציאת השורות בטבלה
+        const tableRows = document.querySelectorAll('table tr, .suppliers-table tr, tbody tr');
+        let totalUsed = 0;
+
+        tableRows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            cells.forEach(cell => {
+                const text = cell.textContent.trim();
+                if (text.includes('₪')) {
+                    const num = parseInt(text.replace(/[^\d]/g, ''), 10);
+                    if (!isNaN(num) && num > 0) {
+                        totalUsed += num;
+                    }
+                }
+            });
+        });
+
+        const remaining = currentTotalBudget - totalUsed;
+        const percentage = Math.min((totalUsed / currentTotalBudget) * 100, 100);
+
+        // תפיסת אלמנטים לפי ID במידה וקיימים, או דריסת תוכן הטקסט הקיים בצורה נקייה
+        const totalBudgetValEl = document.getElementById('total-budget-val');
+        const usedBudgetValEl = document.getElementById('used-budget-val');
+        const remainingBudgetValEl = document.getElementById('remaining-budget-val');
+
+        if (totalBudgetValEl) {
+            totalBudgetValEl.textContent = `₪${currentTotalBudget.toLocaleString()}`;
+        }
+        if (usedBudgetValEl) {
+            usedBudgetValEl.textContent = `₪${totalUsed.toLocaleString()}`;
+        }
+        if (remainingBudgetValEl) {
+            remainingBudgetValEl.textContent = `₪${remaining.toLocaleString()}`;
+        }
+
+        // גיבוי למידה ואין תגיות id - החלפה נקייה עם regex שמחליף רק את המספר ב-₪
+        if (!totalBudgetValEl || !usedBudgetValEl || !remainingBudgetValEl) {
+            document.querySelectorAll('p, div, span').forEach(el => {
+                if (el.children.length === 0) {
+                    if (el.textContent.includes('תקציב כולל:')) {
+                        el.textContent = `תקציב כולל: ₪${currentTotalBudget.toLocaleString()}`;
+                    } else if (el.textContent.includes('נוצל:')) {
+                        el.textContent = `נוצל: ₪${totalUsed.toLocaleString()}`;
+                    } else if (el.textContent.includes('נשאר:')) {
+                        el.textContent = `נשאר: ₪${remaining.toLocaleString()}`;
+                    }
+                }
+            });
+        }
+
+        // עדכון סרגל ההתקדמות
+        const progressBar = document.querySelector('.progress-bar, #budget-progress-bar');
+        if (progressBar) {
+            progressBar.style.width = `${percentage}%`;
+        }
     }
 
-    const openShareBtn = document.getElementById('open-share-modal');
-    const closeShareBtn = document.getElementById('close-share-modal');
-    const shareModal = document.getElementById('share-modal');
+    // מנגנון הסרה
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (btn && btn.textContent.trim() === 'הסרה') {
+            const row = btn.closest('tr');
+            if (row) {
+                row.remove();
+                updateBudgetSummary(); // דריסה ועדכון נקי מחדש!
+            }
+        }
+    });
 
-    if (openShareBtn && shareModal) {
-        openShareBtn.addEventListener('click', () => shareModal.classList.remove('hidden'));
-    }
-    if (closeShareBtn && shareModal) {
-        closeShareBtn.addEventListener('click', () => shareModal.classList.add('hidden'));
-    }
-
-    /* ==========================================
-       7. עדכון תקציב (my-event.html)
-       ========================================== */
+    // טופס עדכון תקציב
     const editBudgetForm = document.getElementById('edit-budget-form');
     if (editBudgetForm) {
         editBudgetForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const newBudgetInput = document.getElementById('new-total-budget');
-            if (newBudgetInput) clearError(newBudgetInput);
+            const input = editBudgetForm.querySelector('input[type="number"]');
+            if (input) clearError(input);
 
-            const newBudget = parseInt(newBudgetInput.value);
+            const newBudget = parseInt(input?.value || '0', 10);
 
             if (!newBudget || newBudget <= 0) {
-                showError(newBudgetInput, 'נא להזין סכום תקציב תקין הגדול מ-0');
+                showError(input, 'נא להזין סכום תקציב תקין הגדול מ-0');
                 return;
             }
 
-            const totalBudgetVal = document.getElementById('total-budget-val');
-            const remainingBudgetVal = document.getElementById('remaining-budget-val');
-            const progressBar = document.getElementById('budget-progress-bar');
-            const budgetWarning = document.getElementById('budget-warning');
+            currentTotalBudget = newBudget;
+            updateBudgetSummary();
 
-            const usedBudget = 162000;
-            const remaining = newBudget - usedBudget;
-
-            if (totalBudgetVal) totalBudgetVal.textContent = `₪${newBudget.toLocaleString()}`;
-            if (remainingBudgetVal) remainingBudgetVal.textContent = `₪${remaining.toLocaleString()}`;
-
-            const percent = Math.min((usedBudget / newBudget) * 100, 100);
-            if (progressBar) {
-                progressBar.style.width = `${percent}%`;
-                if (usedBudget > newBudget) {
-                    progressBar.style.backgroundColor = 'var(--error-red)';
-                    if (budgetWarning) budgetWarning.style.display = 'block';
-                } else {
-                    progressBar.style.backgroundColor = 'var(--primary-color)';
-                    if (budgetWarning) budgetWarning.style.display = 'none';
-                }
-            }
-
-            budgetModal.classList.add('hidden');
+            if (budgetModal) budgetModal.classList.add('hidden');
+            editBudgetForm.reset();
         });
     }
 });
