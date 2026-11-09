@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חתונה בקליק - חיפוש אולם</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-box">
+                <a href="index.html" class="logo">לוגו | חתונה בקליק</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="פתח תפריט">☰</button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">בית</a></li>
+                    <li><a href="search-venue.html" class="active">חיפוש אולם</a></li>
+                    <li><a href="suppliers.html">ספקים</a></li>
+                    <li><a href="my-event.html">האירוע שלי</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="nav-auth-area">
+                <a href="auth.html" class="btn btn-outline nav-auth-btn">התחברות</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container page-layout">
+        <h1>חיפוש אולם</h1>
+
+        <div class="search-venue-grid">
+            <!-- Sidebar / Form Filter -->
+            <aside class="search-sidebar">
+                <div class="card">
+                    <h2>פרטי האירוע</h2>
+                    <form id="venue-search-form" novalidate>
+                        <!-- תאריך: תכונת min מבטיחה שלא ניתן לבחור תאריך מן העבר -->
+                        <div class="form-group">
+                            <label for="event-date">תאריך האירוע *</label>
+                            <input type="date" id="event-date" name="date" required min="2026-11-09">
+                            <span class="error-message" id="error-date"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-guests">מספר אורחים *</label>
+                            <input type="number" id="event-guests" name="guests" placeholder="300" required min="20" max="1500">
+                            <span class="error-message" id="error-guests"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="venue-budget">תקציב לאולם (₪) *</label>
+                            <input type="number" id="venue-budget" name="budget" placeholder="150,000" required min="1">
+                            <span class="error-message" id="error-budget"></span>
+                        </div>
+
+                        <!-- אזור: אפשרות לבחירה מרובה במקביל (למשל גם צפון וגם דרום) -->
+                        <div class="form-group">
+                            <label>אזור * (אפשר לבחור כמה)</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="region" value="north"> צפון</label>
+                                <label><input type="checkbox" name="region" value="center" checked> מרכז</label>
+                                <label><input type="checkbox" name="region" value="jerusalem"> ירושלים</label>
+                                <label><input type="checkbox" name="region" value="south"> דרום</label>
+                            </div>
+                            <span class="error-message" id="error-region"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="venue-style">סגנון (לא חובה)</label>
+                            <select id="venue-style" name="style">
+                                <option value="">הכל</option>
+                                <option value="garden">גן אירועים</option>
+                                <option value="hall">אולם</option>
+                                <option value="nature">טבע</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark btn-block">מצאו לי אולם</button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <div class="results-header">
+                    <h2 id="results-count-title">נמצאו <span id="results-count">0</span> אולמות מתאימים</h2>
+                    <div class="sort-container">
+                        <label for="sort-select">מיון לפי:</label>
+                        <select id="sort-select">
+                            <option value="price-asc">עלות משוערת (מהנמוך לגבוה)</option>
+                            <option value="price-desc">עלות משוערת (מהגבוה לנמוך)</option>
+                            <option value="capacity-desc">קיבולת אורחים</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="venues-cards-container">
+                    <!-- ייטען דינמית באמצעות JavaScript -->
+                </div>
+
+                <div class="card empty-state hidden" id="empty-state-card">
+                    <h3>לא נמצאו אולמות פנויים בתנאים שבחרתם</h3>
+                    <p>הצעה: לשנות תאריך / להרחיב את האזור / להגדיל תקציב</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <p>© 2026 חתונה בקליק | <a href="#">צרו קשר</a></p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
