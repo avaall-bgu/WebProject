@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================
-       3. הגדרת מגבלת תאריך עתידי + ולדיציית תאריך
+       3. הגדרת מגבלת תאריך עתידי + ולדיציה
        ========================================== */
     const dateInputs = document.querySelectorAll('input[type="date"]');
     const todayObj = new Date();
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================
-       4. חיפוש וסינון אולמות (search-venue.html)
+       4. חיפוש וסינון אולמות דינמי (search-venue.html)
        ========================================== */
     const venueSearchForm = document.getElementById('search-venue-form');
     const venuesContainer = document.getElementById('venues-container');
@@ -73,6 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (venueSearchForm && venuesContainer && typeof VENUES_DATA !== 'undefined') {
         
+        // מצב התחלתי: ריק עד ללחיצה על חיפוש
+        if (venueResultsCount) venueResultsCount.textContent = 'מלאו את שדות הסינון ולחצו על חיפוש';
+        venuesContainer.innerHTML = '<div class="empty-state">תוצאות החיפוש יופיעו כאן לאחר לחיצה על "חיפוש אולמות"</div>';
+
         function renderVenues(venuesList, guestsCount = null) {
             venuesContainer.innerHTML = '';
 
@@ -109,8 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 venuesContainer.appendChild(card);
             });
         }
-
-        renderVenues(VENUES_DATA);
 
         venueSearchForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -158,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cateringGuestsGroup = document.getElementById('catering-guests-group');
     const supplierResultsCount = document.getElementById('suppliers-results-count');
 
-    // הצגה/הסתרה של שדה אורחים בעת סימון קייטרינג ב-DOM
     if (cateringCheckbox && cateringGuestsGroup) {
         cateringCheckbox.addEventListener('change', () => {
             if (cateringCheckbox.checked) {
@@ -170,6 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (suppliersSearchForm && suppliersContainer && typeof SUPPLIERS_DATA !== 'undefined') {
+
+        // מצב התחלתי: ריק עד ללחיצה על סינון
+        if (supplierResultsCount) supplierResultsCount.textContent = 'מלאו את פרטי הסינון ולחצו על סינון ספקים';
+        suppliersContainer.innerHTML = '<div class="empty-state">תוצאות החיפוש יופיעו כאן לאחר לחיצה על "סינון ספקים"</div>';
 
         function renderSuppliers(suppliersList) {
             suppliersContainer.innerHTML = '';
@@ -197,12 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        renderSuppliers(SUPPLIERS_DATA);
-
         suppliersSearchForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // ולדיציית תאריך
             const supplierDateInput = document.getElementById('supplier-date');
             if (supplierDateInput && supplierDateInput.value) {
                 const selDate = new Date(supplierDateInput.value);
@@ -214,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // סוגי ספקים שנבחרו (ריבוי בחירה)
             const selectedCategories = Array.from(document.querySelectorAll('input[name="supplier-type"]:checked'))
                 .map(cb => cb.value);
 
