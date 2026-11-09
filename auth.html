@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חתונה בקליק - התחברות והרשמה</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-box">
+                <a href="index.html" class="logo">לוגו | חתונה בקליק</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="פתח תפריט">☰</button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">בית</a></li>
+                    <li><a href="search-venue.html">חיפוש אולם</a></li>
+                    <li><a href="suppliers.html">ספקים</a></li>
+                    <li><a href="my-event.html">האירוע שלי</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="nav-auth-area">
+                <a href="auth.html" class="btn btn-outline nav-auth-btn active">התחברות</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container auth-container">
+        <div class="card auth-card card-bordered">
+            <!-- Tabs Header -->
+            <div class="auth-tabs" role="tablist">
+                <button class="auth-tab-btn active" id="tab-login" role="tab">התחברות</button>
+                <button class="auth-tab-btn" id="tab-register" role="tab">הרשמה</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form" novalidate>
+                <h2>התחברות לחשבון</h2>
+                <div class="form-group">
+                    <label for="login-email">דוא"ל *</label>
+                    <input type="email" id="login-email" name="email" required placeholder="your@email.com">
+                    <span class="error-message" id="error-login-email"></span>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">סיסמה *</label>
+                    <input type="password" id="login-password" name="password" required>
+                    <span class="error-message" id="error-login-password"></span>
+                </div>
+                <button type="submit" class="btn btn-dark btn-block">התחברות</button>
+            </form>
+
+            <!-- Register Form (Hidden by default) -->
+            <form id="register-form" class="auth-form hidden" novalidate>
+                <h2>הרשמה למערכת</h2>
+                <div class="form-group">
+                    <label for="reg-name">שם מלא *</label>
+                    <input type="text" id="reg-name" name="fullname" required placeholder="נועה לוי">
+                    <span class="error-message" id="error-reg-name"></span>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">דוא"ל *</label>
+                    <input type="email" id="reg-email" name="email" required placeholder="your@email.com">
+                    <span class="error-message" id="error-reg-email"></span>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">סיסמה *</label>
+                    <input type="password" id="reg-password" name="password" required minlength="6">
+                    <span class="error-message" id="error-reg-password"></span>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm-password">אימות סיסמה *</label>
+                    <input type="password" id="reg-confirm-password" name="confirmPassword" required minlength="6">
+                    <span class="error-message" id="error-reg-confirm"></span>
+                </div>
+                <button type="submit" class="btn btn-dark btn-block">הרשמה</button>
+            </form>
+
+            <!-- General Error Message Area -->
+            <div class="auth-general-error hidden" id="auth-general-error"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <p>© 2026 חתונה בקליק | <a href="#">צרו קשר</a></p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
