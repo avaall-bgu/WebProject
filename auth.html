@@ -37,13 +37,8 @@
     <!-- Main Content -->
     <main class="container auth-container">
         <div class="card auth-card card-bordered">
-            <!-- Tabs Header -->
-            <div class="auth-tabs" role="tablist">
-                <button class="auth-tab-btn active" id="tab-login" role="tab">התחברות</button>
-                <button class="auth-tab-btn" id="tab-register" role="tab">הרשמה</button>
-            </div>
-
-            <!-- Login Form -->
+            
+            <!-- Login Form (Default view) -->
             <form id="login-form" class="auth-form" novalidate>
                 <h2>התחברות לחשבון</h2>
                 <div class="form-group">
@@ -56,7 +51,14 @@
                     <input type="password" id="login-password" name="password" required>
                     <span class="error-message" id="error-login-password"></span>
                 </div>
+                
                 <button type="submit" class="btn btn-dark btn-block">התחברות</button>
+
+                <!-- Link to toggle Register -->
+                <div class="auth-switch-prompt">
+                    <span>עדיין אין לך משתמש? </span>
+                    <button type="button" class="btn-link" id="goto-register-btn">להרשמה</button>
+                </div>
             </form>
 
             <!-- Register Form (Hidden by default) -->
@@ -82,7 +84,14 @@
                     <input type="password" id="reg-confirm-password" name="confirmPassword" required minlength="6">
                     <span class="error-message" id="error-reg-confirm"></span>
                 </div>
+                
                 <button type="submit" class="btn btn-dark btn-block">הרשמה</button>
+
+                <!-- Link to toggle Login -->
+                <div class="auth-switch-prompt">
+                    <span>כבר יש לך משתמש? </span>
+                    <button type="button" class="btn-link" id="goto-login-btn">להתחברות</button>
+                </div>
             </form>
 
             <!-- General Error Message Area -->

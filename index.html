@@ -43,7 +43,7 @@
         <section class="hero-section">
             <div class="hero-content">
                 <h1>מוצאים אולם פנוי שמתאים לתקציב, בקליק</h1>
-                <p class="hero-subtitle">עושים לכם סדר בבלאגן</p>
+                <p class="hero-subtitle">משפט פתיחה קצר על השירות</p>
                 <a href="search-venue.html" class="btn btn-dark btn-hero">התחילו לחפש</a>
             </div>
         </section>
@@ -53,7 +53,7 @@
             <section class="quick-search-section">
                 <h2 class="section-title-right">חיפוש מהיר</h2>
                 <div class="quick-search-box card-bordered">
-                    <form id="quick-search-form" class="quick-search-form-row">
+                    <form id="quick-search-form" action="search-venue.html" method="GET" class="quick-search-form-row">
                         <!-- תאריך: תכונת min מונעת בחירת תאריך שעבר -->
                         <div class="form-group">
                             <label for="quick-date">תאריך</label>
@@ -69,10 +69,10 @@
                         <div class="form-group">
                             <label>אזור (אפשר לבחור כמה)</label>
                             <div class="checkbox-group-inline">
-                                <label><input type="checkbox" name="quick-region" value="north"> צפון</label>
-                                <label><input type="checkbox" name="quick-region" value="center" checked> מרכז</label>
-                                <label><input type="checkbox" name="quick-region" value="jerusalem"> ירושלים</label>
-                                <label><input type="checkbox" name="quick-region" value="south"> דרום</label>
+                                <label><input type="checkbox" name="region" value="north"> צפון</label>
+                                <label><input type="checkbox" name="region" value="center" checked> מרכז</label>
+                                <label><input type="checkbox" name="region" value="jerusalem"> ירושלים</label>
+                                <label><input type="checkbox" name="region" value="south"> דרום</label>
                             </div>
                         </div>
 
