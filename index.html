@@ -1,25 +1,36 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>חתונה בקליק - דף הבית</title>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+
     <!-- CSS -->
-<link rel="stylesheet" href="css/style.css"></head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
 <body>
 
     <!-- Header & Navigation -->
     <header class="main-header">
+
         <div class="header-container">
+
             <div class="logo-box">
                 <a href="index.html" class="logo">לוגו | חתונה בקליק</a>
             </div>
-            
-            <button class="mobile-menu-btn" aria-label="פתח תפריט">☰</button>
+
+            <button class="mobile-menu-btn" aria-label="פתח תפריט">
+                ☰
+            </button>
 
             <nav class="main-nav">
                 <ul>
@@ -31,83 +42,86 @@
             </nav>
 
             <div class="auth-buttons" id="nav-auth-area">
-                <a href="auth.html" class="btn btn-outline nav-auth-btn">התחברות</a>
+                <a href="auth.html" class="btn btn-outline nav-auth-btn">
+                    התחברות
+                </a>
             </div>
+
         </div>
+
     </header>
+
 
     <!-- Main Content -->
     <main>
+
         <!-- Hero Banner Section -->
         <section class="hero-section">
+
             <div class="hero-content">
+
                 <h1>מוצאים אולם פנוי שמתאים לתקציב, בקליק</h1>
-                <p class="hero-subtitle">משפט פתיחה קצר על השירות</p>
-                <a href="search-venue.html" class="btn btn-dark btn-hero">התחילו לחפש</a>
+
+                <p class="hero-subtitle">
+                    מתכננים את החתונה בראש שקט –
+                    אנחנו נעזור לכם למצוא את האולם שמתאים בדיוק לכם.
+                </p>
+
+                <a href="search-venue.html" class="btn btn-dark btn-hero">
+                    התחילו לחפש
+                </a>
+
             </div>
+
         </section>
 
+
         <div class="container content-wrapper">
-            <!-- Quick Search Section -->
-            <section class="quick-search-section">
-                <h2 class="section-title-right">חיפוש מהיר</h2>
-                <div class="quick-search-box card-bordered">
-                    <form id="quick-search-form" action="search-venue.html" method="GET" class="quick-search-form-row">
-                        <!-- תאריך: תכונת min מונעת בחירת תאריך שעבר -->
-                        <div class="form-group">
-                            <label for="quick-date">תאריך</label>
-                            <input type="date" id="quick-date" name="date" required min="2026-11-09">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quick-guests">מספר אורחים</label>
-                            <input type="number" id="quick-guests" name="guests" placeholder="300" min="20" max="1500">
-                        </div>
-
-                        <!-- אזור: בחירה מרובה באמצעות Checkboxes -->
-                        <div class="form-group">
-                            <label>אזור (אפשר לבחור כמה)</label>
-                            <div class="checkbox-group-inline">
-                                <label><input type="checkbox" name="region" value="north"> צפון</label>
-                                <label><input type="checkbox" name="region" value="center" checked> מרכז</label>
-                                <label><input type="checkbox" name="region" value="jerusalem"> ירושלים</label>
-                                <label><input type="checkbox" name="region" value="south"> דרום</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group form-group-btn">
-                            <button type="submit" class="btn btn-dark search-btn">חיפוש</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
 
             <!-- How It Works Section -->
             <section class="how-it-works-section">
+
                 <h2 class="section-title-right">איך זה עובד?</h2>
+
                 <div class="steps-grid">
-                    <div class="step-box">
-                        <p>① מזינים תאריך, אורחים ותקציב</p>
-                    </div>
-                    <div class="step-box">
+
+                    <article class="step-box">
+                        <p>① מזינים תאריך, מספר אורחים ותקציב</p>
+                    </article>
+
+                    <article class="step-box">
                         <p>② מקבלים אולמות פנויים ומתאימים</p>
-                    </div>
-                    <div class="step-box">
+                    </article>
+
+                    <article class="step-box">
                         <p>③ שומרים לאירוע ועוקבים אחרי התקציב</p>
-                    </div>
+                    </article>
+
                 </div>
+
             </section>
+
         </div>
+
     </main>
+
 
     <!-- Footer -->
     <footer class="main-footer">
+
         <div class="container footer-container">
-            <p>© 2026 חתונה בקליק | <a href="#">צרו קשר</a></p>
+            <p>
+                © 2026 חתונה בקליק |
+                <a href="#">צרו קשר</a>
+            </p>
         </div>
+
     </footer>
 
+
+    <!-- JavaScript -->
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
+
 </body>
 </html>
