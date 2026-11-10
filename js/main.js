@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const parent = inputElement.parentNode;
         const existingError = parent.querySelector('.error-message');
         if (existingError) {
-            parent.removeChild(existingError);
+            existingError.remove();
         }
     }
 
@@ -217,9 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================
        4. חיפוש וסינון אולמות דינמי (search-venue.html)
        ========================================== */
-    const venueSearchForm = document.getElementById('search-venue-form');
-    const venuesContainer = document.getElementById('venues-container');
-    const venueEmptyState = document.getElementById('empty-state');
+
+    // התאמת המזהים למזהים הקיימים ב-search-venue.html
+    const venueSearchForm = document.getElementById('venue-search-form');
+    const venuesContainer = document.getElementById('venues-cards-container');
+    const venueEmptyState = document.getElementById('empty-state-card');
     const venueResultsCount = document.getElementById('results-count');
 
     if (venueSearchForm && venuesContainer && typeof VENUES_DATA !== 'undefined') {
@@ -267,7 +270,8 @@ document.addEventListener('DOMContentLoaded', () => {
         venueSearchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const searchDateInput = document.getElementById('search-date');
+            // התאמת מזהה שדה התאריך ל-HTML
+            const searchDateInput = document.getElementById('event-date');
             if (searchDateInput) clearError(searchDateInput);
 
             if (searchDateInput && searchDateInput.value) {
@@ -279,8 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            const guestsInputVal = document.getElementById('guests-count')?.value;
-            const budgetInputVal = document.getElementById('max-budget')?.value;
+            // התאמת מזהי שדות האורחים והתקציב ל-HTML
+            const guestsInputVal = document.getElementById('event-guests')?.value;
+            const budgetInputVal = document.getElementById('venue-budget')?.value;
 
             const selectedGuests = guestsInputVal ? parseInt(guestsInputVal) : null;
             const maxBudget = budgetInputVal ? parseInt(budgetInputVal) : Infinity;
@@ -431,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const remaining = currentTotalBudget - totalUsed;
         const percentage = Math.min((totalUsed / currentTotalBudget) * 100, 100);
 
-        // תפיסת אלמנטים לפי ID במידה וקיימים, או דריסת תוכן הטקסט הקיים בצורה נקייה
         const totalBudgetValEl = document.getElementById('total-budget-val');
         const usedBudgetValEl = document.getElementById('used-budget-val');
         const remainingBudgetValEl = document.getElementById('remaining-budget-val');
@@ -446,7 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
             remainingBudgetValEl.textContent = `₪${remaining.toLocaleString()}`;
         }
 
-        // גיבוי למידה ואין תגיות id - החלפה נקייה עם regex שמחליף רק את המספר ב-₪
         if (!totalBudgetValEl || !usedBudgetValEl || !remainingBudgetValEl) {
             document.querySelectorAll('p, div, span').forEach(el => {
                 if (el.children.length === 0) {
@@ -461,7 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // עדכון סרגל ההתקדמות
         const progressBar = document.querySelector('.progress-bar, #budget-progress-bar');
         if (progressBar) {
             progressBar.style.width = `${percentage}%`;
@@ -475,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = btn.closest('tr');
             if (row) {
                 row.remove();
-                updateBudgetSummary(); // דריסה ועדכון נקי מחדש!
+                updateBudgetSummary();
             }
         }
     });
